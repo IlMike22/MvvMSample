@@ -8,10 +8,10 @@ import com.raywenderlich.android.creaturemon.model.Creature
 interface CreatureDao
 {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun createCreature(creature: Creature)
+    fun insert(creature: Creature)
 
     @Delete
-    fun removeCreature(vararg creature:Creature)
+    fun clearCreatures(vararg creature:Creature)
 
     @Query("SELECT * FROM creature_table ORDER BY name ASC")
     fun getAllCreatures(): LiveData<List<Creature>>

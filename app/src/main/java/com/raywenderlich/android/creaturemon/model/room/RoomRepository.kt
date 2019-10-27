@@ -22,17 +22,21 @@ class RoomRepository : CreatureRepository {
   override fun getAllCreatures(): LiveData<List<Creature>> = allCreatures
 
   override fun clearAllCreatures() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    val creatureArray = getAllCreatures().value?.toTypedArray()
+    if (creatureArray != null)
+      DeleteAsyncTask(creatureDao).execute(*creatureArray)
   }
 
   private class InsertAsyncTask internal constructor(private val dao: CreatureDao) : AsyncTask<Creature, Void, Void>() {
     override fun doInBackground(vararg params: Creature): Void? {
+      dao.insert(params[0])
       return null
     }
   }
 
   private class DeleteAsyncTask internal constructor(private val dao: CreatureDao) : AsyncTask<Creature, Void, Void>() {
     override fun doInBackground(vararg params: Creature): Void? {
+      dao.clearCreatures(*params)
       return null
     }
   }
