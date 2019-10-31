@@ -36,9 +36,9 @@ import android.support.annotation.NonNull
 
 @Entity(tableName = "creature_table")
 data class Creature(
-        val attributes:CreatureAttributes = CreatureAttributes(),
-        val hitpoints:Int = 0,
-        @PrimaryKey @NonNull val name:String = "",
-        val drawable:Int = 0
+        var attributes:CreatureAttributes = CreatureAttributes(),
+        var hitpoints:Int = 0,
+        @PrimaryKey @NonNull var name:String = "",
+        var drawable:Int = 0
 
 )

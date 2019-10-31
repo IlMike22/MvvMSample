@@ -42,7 +42,7 @@ class CreaturemonApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        database = Room.databaseBuilder((this, CreatureDatabase::class.java, "creature_database")
+        database = Room.databaseBuilder(this, CreatureDatabase::class.java, "creature_database")
                 .build()
     }
 }
