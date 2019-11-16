@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.raywenderlich.android.creaturemon.R
 import com.raywenderlich.android.creaturemon.view.creature.CreatureActivity
 import com.raywenderlich.android.creaturemon.viewModel.AllCreaturesViewModel
@@ -27,10 +28,12 @@ class AllCreaturesActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this).get(AllCreaturesViewModel::class.java)
 
-        configureLiveDataObservers()
-
         creaturesRecyclerView.layoutManager = LinearLayoutManager(this)
         creaturesRecyclerView.adapter = adapter
+
+        configureLiveDataObservers()
+
+
 
         fab.setOnClickListener {
             startActivity(Intent(this, CreatureActivity::class.java))
@@ -46,6 +49,8 @@ class AllCreaturesActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_clear_all -> {
+                if (viewModel.clearAllCreatures())
+                    Toast.makeText(this,"All items were cleared.",Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
