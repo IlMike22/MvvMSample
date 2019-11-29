@@ -12,6 +12,10 @@ class CreatureViewModel(private val generator: CreatureGenerator = CreatureGener
     private val creatureLiveData = MutableLiveData<Creature>()
     fun getCreatureLiveData(): LiveData<Creature> = creatureLiveData
 
+    private val saveLiveData = MutableLiveData<Boolean>()
+
+    fun getSaveLiveData(): LiveData<Boolean> = saveLiveData
+
     var name = ""
     var strength = 0
     var endurance = 0
@@ -45,12 +49,12 @@ class CreatureViewModel(private val generator: CreatureGenerator = CreatureGener
         updateCreature()
     }
 
-    fun saveCreature(): Boolean {
+    fun saveCreature() {
         return if (canSaveCreature()) {
             repository.saveCreature(creature)
-            true
+            saveLiveData.postValue(true)
         } else
-            false
+            saveLiveData.postValue(false)
     }
 
     fun canSaveCreature(): Boolean {
